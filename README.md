@@ -1,7 +1,5 @@
 # HandleBars View
 
-Simple view class for handle bars.
-
 ## Usage
 
 First define the root element for all the views.
