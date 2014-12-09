@@ -12,6 +12,8 @@ And start with your view, first define where the template will be rendered
 
 ```html
 <div data-render-template="wishList"></div>
+
+<div data-render-template="todoList"></div>
 ```
 
 after that, create the template
@@ -32,7 +34,8 @@ and then
 
 ```javascript
 // Define view
-var wishListView = new View('wishList', 'list');
+var wishListView = new View('wishList', 'list'),
+    todoListView = new View('todoList', 'list');
 
 // Render some data
 wishListView.render(
@@ -41,6 +44,15 @@ wishListView.render(
     content: [
       { name: 'JS', value: 'JavaScript' },
       { name: 'RB', value: 'Ruby' },
+    ]
+  }
+);
+
+todoListView.render(
+  {
+    listName: 'Todo List',
+    content: [
+      { name: 'Use handlebars', value: 'It\' the best' }
     ]
   }
 );
@@ -63,14 +75,18 @@ wishListView.append(
   {
     listName: 'Cat - Wish List',
     content: [
-    { name: 'Food', value: 'I\'m hungry' },
-    { name: 'Ball', value: 'That\'s right' },
+      { name: 'Food', value: 'I\'m hungry' },
+      { name: 'Ball', value: 'That\'s right' },
     ]
   }
 );
 ```
 
 ## API
+
+### new View(name, template)
+
+Create a view with specific name, the template can be shared with others views but the name don't.
 
 ### View.clear()
 
