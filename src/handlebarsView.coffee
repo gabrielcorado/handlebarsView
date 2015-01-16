@@ -1,8 +1,7 @@
 # View Class
 class window.View
   # Init
-  constructor: (name, template) ->
-    @name = name
+  constructor: (@name, template) ->
     @source = $("[data-template-name=\"#{template}\"]").text()
     @template = Handlebars.compile @source
 
