@@ -4,8 +4,11 @@ unless CryptoJS.MD5 || jQuery || Handlebars
 
 # View Class
 class View
+  # Handlebars enviroment
+  @ENV: Handlebars.create()
+
   # Init
-  constructor: (@name, template, @options = {  }) ->
+  constructor: (@name, template, @options = {  }, @handlebars = View.ENV) ->
     # Source
     @source = $("[data-template-name=\"#{template}\"]").text()
 
@@ -13,7 +16,7 @@ class View
     @location = $ "[data-render-template=\"#{@name}\"]"
 
     # The template function
-    @template = Handlebars.compile @source
+    @template = @handlebars.compile @source
 
   # Generate a MD5 key based on data
   _dataKey: (data) ->
@@ -86,7 +89,7 @@ class View
     dataKey = @_dataKey data
 
     # Build the template
-    templateGeneration = new Handlebars.SafeString(@template(data)).string
+    templateGeneration = new @handlebars.SafeString(@template(data)).string
 
     # Add a container div
     if @options.keys
