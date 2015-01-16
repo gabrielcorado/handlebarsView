@@ -23,20 +23,21 @@ class View
   _getItems: ->
     @location.find('[data-view-position]').toArray().sort (a, b) ->
       # Positions
-      aPosition = Number $(a).attr('data-view-position') if a
-      bPosition = Number $(b).attr('data-view-position') if b
+      aPosition = Number $(a).attr('data-view-position')
+      bPosition = Number $(b).attr('data-view-position')
 
-      return 0 unless b || a
+      # Equals or not defined
+      return 0 if (!a || !b) || (aPosition == bPosition)
 
       # Return
-      return a > b ? 1 : -1
+      return aPosition > bPosition ? 1 : -1
 
   _findPrevItem: (position) ->
     # Item
     item = undefined
 
     # Get items
-    items = @_getItems()
+    items = @_getItems().reverse()
 
     # each items
     for eItem in items
@@ -46,12 +47,9 @@ class View
       # item position
       elPosition = Number el.attr('data-view-position')
 
-      if elPosition > position
+      if elPosition <= position
         item = { el: el, distance: position - elPosition }
         break
-
-      # sub position
-      position--
 
     # Return the item
     item
@@ -71,12 +69,9 @@ class View
       # item position
       elPosition = Number el.attr('data-view-position')
 
-      if elPosition < position
+      if elPosition >= position
         item = { el: el, distance: elPosition - position }
         break
-
-      # Add position
-      position++
 
     # Return the item
     item
@@ -144,10 +139,10 @@ class View
       nextItem = @_findNextItem options.position
 
       # Checks around item exists
-      if nextItem && nextItem.distance < prevItem.distance
-        nextItem.el.after template
+      if nextItem && ( !prevItem || nextItem.distance < prevItem.distance )
+        nextItem.el.before template
       else if prevItem
-        prevItem.el.before template
+        prevItem.el.after template
       else
         @location.append template
 
