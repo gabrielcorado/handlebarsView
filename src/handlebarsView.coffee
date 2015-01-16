@@ -1,3 +1,7 @@
+# Dependencies
+unless CryptoJS.MD5 || jQuery || Handlebars
+  throw 'check the list of dependence'
+
 # View Class
 class View
   # Init
