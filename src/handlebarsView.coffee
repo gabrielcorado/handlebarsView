@@ -1,8 +1,5 @@
 # View Class
 class window.View
-  # Root
-  @root: undefined
-
   # Init
   constructor: (name, template) ->
     @name = name
