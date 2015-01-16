@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <title>handlebarsView - Examples</title>
+  </head>
+  <body>
+    <nav class="main-menu">
+      <ul class="menu-items" data-render-template="menuItem">
+
+      </ul>
+    </nav>
+
+
+    <!-- \\\\\\\\\ -->
+
+    <script type="text/x-handlebars" data-template-name="menuItem">
+      <a href="{{url}}">{{title}}</a>
+    </script>
+
+
+    <!-- Sources -->
+      <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
+      <script charset="utf-8" src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+      <script charset="utf-8" src="handlebars.runtime-v2.0.0.js"></script>
+      <script charset="utf-8" src="../build/handlebarsView.min.js"></script>
+    <!-- End Sources -->
+
+    <script charset="utf-8">
+      // load
+      jQuery(function($) {
+        // Define views
+        var menuItemView = new View('menuItem', 'menuItem', { keys: true });
+
+        // Menu
+        var menuItems = [
+          { title: 'Github', url: 'http://github.com/', position: 3 },
+          { title: 'Handlebars', url: 'http://handlebarsjs.com/', position: 1 },
+          { title: 'NPM', url: 'http://npmjs.com/', position: 5 },
+          { title: 'jQuery', url: 'http://jquery.com/', position: 4 },
+          { title: 'Google', url: 'http://google.com', position: 2 }
+        ];
+
+        // Render items
+        for( var i = 0; i < menuItems.length; i++ ) {
+          menuItemView.append(menuItems[i], { position: menuItems[i].position, container: { el: 'li', classes: 'menu-item' } });
+        }
+      });
+    </script>
+  </body>
+</html>
