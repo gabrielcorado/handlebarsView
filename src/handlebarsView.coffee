@@ -107,15 +107,15 @@ class View
       "
 
     # Return
-    return templateGeneration
+    return { key: dataKey, template: templateGeneration }
 
   # Render the template on @location
   render: (data = {  }, options = {  }) ->
     # Built template
-    template = @build data, options
+    built = @build data, options
 
     # Render it
-    @location.html template
+    @location.html built.template
 
     # Default return
     return true
@@ -127,28 +127,29 @@ class View
       throw 'position must be a number'
 
     # Built template
-    template = @build data, options
+    built = @build data, options
 
-    # Check position rule
-    if options.position?
-      # Transform position in number
-      options.position = Number options.position
+    if @location.find("[data-view-key=\"#{built.key}\"]").length == 0
+      # Check position rule
+      if options.position?
+        # Transform position in number
+        options.position = Number options.position
 
-      # Get last and prev items
-      prevItem = @_findPrevItem options.position
-      nextItem = @_findNextItem options.position
+        # Get last and prev items
+        prevItem = @_findPrevItem options.position
+        nextItem = @_findNextItem options.position
 
-      # Checks around item exists
-      if nextItem && ( !prevItem || nextItem.distance < prevItem.distance )
-        nextItem.el.before template
-      else if prevItem
-        prevItem.el.after template
+        # Checks around item exists
+        if nextItem && ( !prevItem || nextItem.distance < prevItem.distance )
+          nextItem.el.before built.template
+        else if prevItem
+          prevItem.el.after built.template
+        else
+          @location.append built.template
+
       else
-        @location.append template
-
-    else
-      # Append it
-      @location.append template
+        # Append it
+        @location.append built.template
 
     # Default return
     return true
