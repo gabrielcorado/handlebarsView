@@ -1,5 +1,5 @@
 # View Class
-class window.View
+class View
   # Init
   constructor: (@name, template, @options = {  }) ->
     # Source
@@ -61,3 +61,6 @@ class window.View
 
     # Default return
     return true
+
+# Set it global
+window.View or= View
