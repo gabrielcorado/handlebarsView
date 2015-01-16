@@ -1,23 +1,22 @@
 # View Class
 class window.View
-
   # Root
   @root: undefined
 
   # Init
   constructor: (name, template) ->
     @name = name
-    @source = $('[data-template-name="' + template + '"]').text()
+    @source = $("[data-template-name=\"#{template}\"]").text()
     @template = Handlebars.compile @source
 
   # Clear the view
   clear: ->
-    @location = $ '[data-render-template="' + @name + '"]'
+    @location = $ "[data-render-template=\"#{@name}\"]"
     @location.html ''
 
   # Build view
   build: (data = {}) ->
-    @location = $ '[data-render-template="' + @name + '"]'
+    @location = $ "[data-render-template=\"#{@name}\"]"
     template = new Handlebars.SafeString @template(data)
     template
 
