@@ -3,7 +3,7 @@
 ## Table of contents
 * [Usage](#usage)
 * [API](#api)
-* [Checklist](#checklies)
+* [Checklist](#checklist)
 * [Dependencies](#dependencies)
 
 ## Usage

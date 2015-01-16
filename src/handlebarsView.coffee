@@ -4,7 +4,7 @@ unless CryptoJS.MD5 || jQuery || Handlebars
 
 # View Class
 class View
-  # Handlebars enviroment
+  # Handlebars environment
   @ENV: Handlebars.create()
 
   # Init
